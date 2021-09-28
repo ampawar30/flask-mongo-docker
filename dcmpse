@@ -1,0 +1,12 @@
+
+version: "3.3"
+services:
+  flaskapp:
+    build: .
+    image: flask-app1 
+    ports:
+      - 5000:5000
+  mongo:
+    image: mvertes/alpine-mongo
+    ports:
+      - 27017:27017

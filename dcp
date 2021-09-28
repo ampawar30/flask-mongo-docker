@@ -1,0 +1,32 @@
+ersion: '3'
+services:
+  flask:
+    build: .
+    image: iampawar/flask-mongo
+    ports:
+      - 5000:5000
+    container_name: flask-mongo
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "False"
+      #APP_PORT: 5000
+      MONGODB_DATABASE: tasks
+      MONGODB_HOSTNAME: mongodb
+    volumes:
+      - appdata:/var/www
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: docker.io/mongo:4.0.8
+    ports:
+      - 27017:27017
+    container_name: mongo-app
+    #command: mongod --auth
+    environment:
+      MONGO_INITDB_DATABASE: tasks
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongodbdata:/data/db
+
